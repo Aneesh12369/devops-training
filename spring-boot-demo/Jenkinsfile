@@ -38,6 +38,7 @@ pipeline {
     	
     	stage('Build Docker Image') {
     		steps{
+    		
 				buildImage()
 				
 			}
@@ -65,5 +66,9 @@ pipeline {
 
 def buildImage(){
 	println "Building image"
-    def appImage = docker.build("devops-practice/spring-boot-demo:${BUILD_NUMBER}")    
+	dir('spring-boot-demo'){
+	   def appImage = docker.build("devops-practice/spring-boot-demo:${BUILD_NUMBER}") 
+	}
+
+        
 }
