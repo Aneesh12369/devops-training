@@ -10,13 +10,13 @@ pipeline {
         
         stage('Build') {
         	steps {
-	            sh 'mvn clean install -DskipTests'
+	            sh 'mvn -f spring-boot-demo/pom.xml clean install -DskipTests'
 	        }   
         }
         
         stage('Unin Tests') {
         	steps {
-	            sh 'mvn clean install'
+	            sh 'mvn -f spring-boot-demo/pom.xml clean install'
 	        }   
         }
         
