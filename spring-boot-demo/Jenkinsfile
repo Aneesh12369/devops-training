@@ -29,7 +29,7 @@ pipeline {
 			          sh "${SCANNER_HOME}/bin/sonar-scanner -Dproject.settings=spring-boot-demo/sonar-project.properties"
 			        }
 			        
-			        sleep(100)
+			        sleep(120)
 			        timeout(time: 5, unit: 'MINUTES') { 
     				  waitForQualityGate abortPipeline: true
   					}
@@ -39,6 +39,7 @@ pipeline {
     	stage('Build Docker Image') {
     		steps{
 				println "Building image"
+				def appImage = docker.build("devops-practice/spring-boot-demo:${BUILD_NUMBER}")
 			}
     	
     	}
