@@ -54,7 +54,7 @@ pipeline {
     	
     	stage('Deploy') {
     		steps{
-    	    	println "Deploying.."
+    	    	deploy()
     		}
     	
     	}
@@ -71,4 +71,20 @@ def buildImage(){
 	}
 
         
+}
+
+
+def deploy(){
+
+	println "Deploying.."
+
+    def containerName = 'spring-boot-demo';
+    def port = '9999';
+
+  
+
+    sh "docker ps -q -f name=${containerName} | xargs --no-run-if-empty docker stop"
+    sh "docker ps -aq -f name=${containerName} | xargs -r docker rm"
+    sh "docker run -d -p ${port}:5000 --name ${containerName} devops-practice/spring-boot-demo:${BUILD_NUMBER}"
+
 }
