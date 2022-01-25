@@ -41,7 +41,7 @@ pipeline {
   				 }
 			      steps {
 			        withSonarQubeEnv('sonar-server') {
-			          sh "${SCANNER_HOME}/bin/sonar-scanner"
+			          sh "${SCANNER_HOME}/bin/sonar-scanner -Dproject.settings=spring-boot-demo/sonar-project.properties"
 			        }
 			      }
     	}
