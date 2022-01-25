@@ -10,7 +10,7 @@ pipeline {
         
         stage('Build') {
         	steps {
-	            sh 'mvn -f spring-boot-demo/pom.xml clean install -DskipTests'
+	            sh 'mvn -q -f spring-boot-demo/pom.xml clean install -DskipTests'
 	        }   
         }
         
@@ -29,9 +29,9 @@ pipeline {
 			          sh "${SCANNER_HOME}/bin/sonar-scanner -Dproject.settings=spring-boot-demo/sonar-project.properties"
 			        }
 			        
-			        timeout(time: 5, unit: 'MINUTES') { 
-    				  waitForQualityGate abortPipeline: true
-  					}
+			     //   timeout(time: 5, unit: 'MINUTES') { 
+    				//  waitForQualityGate abortPipeline: true
+  					//}
 			     }
     	}
     	
