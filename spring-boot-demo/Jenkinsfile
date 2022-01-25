@@ -21,9 +21,9 @@ pipeline {
         }
         
         stage('Sonar Scan') {
-	        	
+	        	 environment {
 				    SCANNER_HOME = tool 'sonar-scanner'
-  				 
+  				 }
 			      steps {
 			        withSonarQubeEnv('sonar-server') {
 			          sh "${SCANNER_HOME}/bin/sonar-scanner -Dproject.settings=spring-boot-demo/sonar-project.properties"
