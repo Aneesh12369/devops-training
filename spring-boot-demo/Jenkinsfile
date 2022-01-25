@@ -22,7 +22,7 @@ pipeline {
         
         stage('Sonar Scan') {
         	steps{
-            	def scannerHome = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+            	env.sonarHome = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
     			withSonarQubeEnv('sonar-server') {
       					sh "${scannerHome}/bin/sonar-scanner"    
         		}
