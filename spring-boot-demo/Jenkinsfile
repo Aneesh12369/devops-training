@@ -22,20 +22,17 @@ pipeline {
         
         stage('Sonar Scan') {
         	steps{
-            		def scannerHome = tool 'sonar-scanner';
-    				withSonarQubeEnv {
+            	def scannerHome = tool 'sonar-scanner';
+    			withSonarQubeEnv {
       					sh "${scannerHome}/bin/sonar-scanner"    
-        			}
-            
-        	}
-        	
-        	steps{
+        		}
+        			
         		timeout(time: 5, unit: 'MINUTES') { 
     				waitForQualityGate abortPipeline: true
   				}
-			}
-
-    	
+            
+        	}
+        	
     	}
     	
     	stage('Build Docker Image') {
