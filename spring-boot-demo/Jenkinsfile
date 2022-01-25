@@ -39,17 +39,23 @@ pipeline {
     	}
     	
     	stage('Build Docker Image') {
-			println "Building image"
+    		steps{
+				println "Building image"
+			}
     	
     	}
     	
     	stage('Publish to DockerHub') {
-			println "Pushing Image to Docker Hub"
+			steps{	
+				println "Pushing Image to Docker Hub"
+			}
     	
     	}
     	
     	stage('Deploy') {
-			println "Pushing Image to Docker Hub"
+    		steps{
+    	    	println "Deploying.."
+    		}
     	
     	}
     	
