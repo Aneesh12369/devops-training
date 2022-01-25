@@ -21,21 +21,29 @@ pipeline {
         }
         
         stage('Sonar Scan') {
-        	def scannerHome = tool 'sonar-scanner'
-        	steps{
+        	// def scannerHome = tool 'sonar-scanner'
+        	//steps{
             	//def scannerHome = tool name: 'sonar-scanner'
             	
             	// , type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-    			withSonarQubeEnv('sonar-server') {
-      					sh "${scannerHome}/bin/sonar-scanner"    
-        		}
+    		//	withSonarQubeEnv('sonar-server') {
+      			//		sh "${scannerHome}/bin/sonar-scanner"    
+        	//	}
         			
-        		timeout(time: 5, unit: 'MINUTES') { 
-    				waitForQualityGate abortPipeline: true
-  				}
+        	//	timeout(time: 5, unit: 'MINUTES') { 
+    			//	waitForQualityGate abortPipeline: true
+  			//	}
             
-        	}
+        	//}
         	
+	        	 tools {
+			        sonarQube 'sonar-scanner'
+			      }
+			      steps {
+			        withSonarQubeEnv('sonar-server') {
+			          sh 'sonar-scanner'
+			        }
+			      }
     	}
     	
     	stage('Build Docker Image') {
