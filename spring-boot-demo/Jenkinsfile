@@ -1,0 +1,58 @@
+pipeline {
+    
+    agent any
+    
+    options {
+        disableConcurrentBuilds()
+    }
+    
+    stages {
+        
+        stage('Build') {
+        	steps {
+	            sh 'mvn clean install -DskipTests'
+	        }   
+        }
+        
+        stage('Unin Tests') {
+        	steps {
+	            sh 'mvn clean install'
+	        }   
+        }
+        
+        stage('Sonar Scan') {
+        	steps{
+            		def scannerHome = tool 'sonar-scanner';
+    				withSonarQubeEnv('My SonarQube Server') {
+      					sh "${scannerHome}/bin/sonar-scanner"    
+        			}
+            
+        	}
+        	
+        	steps{
+        		timeout(time: 5, unit: 'MINUTES') { 
+    				waitForQualityGate abortPipeline: true
+  				}
+			}
+
+    	
+    	}
+    	
+    	stage('Build Docker Image') {
+			println "Building image"
+    	
+    	}
+    	
+    	stage('Publish to DockerHub') {
+			println "Pushing Image to Docker Hub"
+    	
+    	}
+    	
+    	stage('Deploy') {
+			println "Pushing Image to Docker Hub"
+    	
+    	}
+    	
+    	
+    }
+}
