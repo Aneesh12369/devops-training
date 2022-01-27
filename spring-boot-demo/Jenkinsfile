@@ -29,7 +29,6 @@ pipeline {
 			          sh "${SCANNER_HOME}/bin/sonar-scanner -Dproject.settings=spring-boot-demo/sonar-project.properties"
 			        }
 			        
-			        sleep(120)
 			        timeout(time: 5, unit: 'MINUTES') { 
     				  waitForQualityGate abortPipeline: true
   					}
